@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Asatics-Craft</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: radial-gradient(circle at center, #0a0a1a, #050505);
+    overflow-x: hidden;
+    color: white;
+}
+
+/* Частицы */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Шапка */
+header {
+    padding: 20px;
+}
+
+.logo {
+    font-size: 24px;
+    color: #7a5cff;
+    text-shadow: 0 0 10px #7a5cff;
+}
+
+/* Главный экран */
+.hero {
+    text-align: center;
+    padding: 80px 20px 120px;
+}
+
+.hero h1 {
+    font-size: 80px;
+    text-shadow: 0 0 40px #7a5cff;
+    animation: glow 2s infinite alternate;
+}
+
+/* Глич */
+.hero h1::after {
+    content: "Asatics-Craft";
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #ff00ff;
+    opacity: 0.2;
+    transform: translate(2px, -2px);
+}
+
+/* IP + кнопка */
+.ip-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.ip {
+    font-size: 30px;
+    color: #7a5cff;
+    text-shadow: 0 0 20px #7a5cff;
+}
+
+.copy-btn {
+    padding: 10px 20px;
+    border: none;
+    background: #7a5cff;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #7a5cff;
+    transition: 0.3s;
+}
+
+.copy-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Анимация */
+@keyframes glow {
+    from {text-shadow: 0 0 20px #7a5cff;}
+    to {text-shadow: 0 0 40px #a084ff;}
+}
+
+/* Карточки */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #111;
+    padding: 20px;
+    width: 200px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 0 30px #7a5cff;
+    transform: translateY(-10px);
+}
+
+/* Скрины */
+.gallery {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.box {
+    width: 220px;
+    height: 160px;
+    background: #222;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.box:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #7a5cff;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<header>
+    <div class="logo">Asatics-Craft</div>
+</header>
+
+<section class="hero">
+    <h1>Asatics-Craft</h1>
+
+    <div class="ip-wrap">
+        <div class="ip">play.asatics-craft.com</div>
+        <button class="copy-btn" onclick="copyIP()">Скопировать</button>
+    </div>
+</section>
+
+<section class="section">
+    <h2>О сервере</h2>
+    <div class="cards">
+        <div class="card">Экономика</div>
+        <div class="card">Работы</div>
+        <div class="card">Кланы</div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>Скриншоты</h2>
+    <div class="gallery">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</section>
+
+<footer>
+    © Asatics-Craft 2026
+</footer>
+
+<script>
+function copyIP() {
+    navigator.clipboard.writeText("play.asatics-craft.com");
+    alert("IP скопирован!");
+}
+
+/* Частицы */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 80; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 0.5
+    });
+}
+
+function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = "#7a5cff";
+
+    particles.forEach(p => {
+        p.y += p.speed;
+        if (p.y > canvas.height) p.y = 0;
+
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
